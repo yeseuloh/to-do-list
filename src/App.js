@@ -9,7 +9,7 @@ function App() {
 
   const updateList = (e) => {
     e.preventDefault();
-    setList(list => [...list, todoInput]);
+    setList(list => [...list, todoInput.current.value]);
   };
   console.log(list);
 
@@ -24,7 +24,7 @@ function App() {
         </div>
       )}
       <form className="todo-input-wrapper">
-        <input type="text" ref={todoInput} />
+        <input type="text" ref={todoInput}/>
         <button className="button-update" onClick={updateList}>
           Submit
         </button>
