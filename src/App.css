@@ -5,8 +5,19 @@ body {
 .todo-wrapper {
   margin: 0 auto;
   text-align: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .todo-input-wrapper {
   
+}
+
+.todo-output-item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 0;
+  align-items: center;
 }
