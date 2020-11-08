@@ -3,57 +3,75 @@ import React from "react";
 import "./App.css";
 
 function App() {
-  const [list, setList] = React.useState([]);
-  // const [todoInput, setTodoInput] = React.useState("");
-  const [todoInput, setTodoInput] = React.useState({
-    title: "",
-    completed: false
-  });
+  const [finishedList, setFinishedList] = React.useState([]);
+  const [unfinishedList, setUnfinishedList] = React.useState([]);
+  const [todoInput, setTodoInput] = React.useState("");
 
-  // let todoInput = React.createRef();
-  const updateTodoInput = e => {
-    setTodoInput({ title: e.target.value, completed: false });
+  const handleTodoInputChange = e => {
+    setTodoInput(e.target.value);
   };
 
   const updateList = e => {
     e.preventDefault();
-    setList(list => [...list, todoInput]);
-    setTodoInput({ title: "", completed: false });
+    var unfinishedListCopy = [...unfinishedList];
+    console.log(unfinishedListCopy);
+    console.log(typeof(todoInput));
+    unfinishedListCopy.push(todoInput);
+    console.log(unfinishedListCopy);
+    setUnfinishedList(unfinishedListCopy);
+    setTodoInput("");
   };
 
-  const markItem = (e, index) => {
+  const markItemAsUnfinished = (e, index) => {
     e.preventDefault();
-    // var stateCopy = Object.assign({}, list);
-    // if (stateCopy[index].completed) {
-    //   stateCopy[index].completed = false;
-    // } else {
-    //   stateCopy[index].completed = true;
-    // }
-    // setList(stateCopy);
+    var unfinishedListCopy = [...unfinishedList];
+    unfinishedListCopy.push(finishedList[index]);
+    setUnfinishedList(unfinishedListCopy);
+    var finishedListCopy = [...finishedList];
+    finishedListCopy.splice(index, 1);
+    setFinishedList(finishedListCopy);
   };
 
-  console.log(list);
+  const markItemAsFinished = (e, index) => {
+    e.preventDefault();
+    var finishedListCopy = [...finishedList];
+    finishedListCopy.push(unfinishedList[index]);
+    setFinishedList(finishedListCopy);
+    var unfinishedListCopy = [...unfinishedList];
+    unfinishedListCopy.splice(index, 1);
+    setUnfinishedList(unfinishedListCopy);
+  }
 
   return (
     <div className="todo-wrapper">
       <h1>To Do List</h1>
-      {list.length > 0 && (
+      {finishedList.length > 0 && (
         <div className="todo-output-wrapper">
-          {list.map((todo, index) => (
+          <h2>Done</h2>
+          {finishedList.map((todo, index) => (
             <>
-              {!todo.completed && (
+              {todo && (
                 <div className="todo-output-item">
-                  <p key={index}>{todo.title.toString()}</p>
-                  <button className="button-delete" onClick={ e => markItem(e, index)}>
-                    Done
+                  <p key={index}>{todo}</p>
+                  <button className="button-delete" onClick={ e => markItemAsUnfinished(e, index)}>
+                    Undone
                   </button>
                 </div>
               )}
-              {todo.completed && (
+            </>
+          ))}
+        </div>
+      )}
+       {unfinishedList.length > 0 && (
+        <div className="todo-output-wrapper">
+          <h2>Not done</h2>
+          {unfinishedList.map((todo, index) => (
+            <>
+              {todo && (
                 <div className="todo-output-item">
-                <p key={index} style={{textDecoration: 'line-through'}}>{todo.title.toString()}</p>
-                <button className="button-delete" onClick={markItem(todo)}>
-                  Uncheck
+                <p key={index} >{todo}</p>
+                <button className="button-delete" onClick={e => markItemAsFinished(e, index)}>
+                  Done
                 </button>
               </div>
               )}
@@ -62,7 +80,7 @@ function App() {
         </div>
       )}
       <form className="todo-input-wrapper">
-        <input type="text" onChange={updateTodoInput} value={todoInput.title} />
+        <input type="text" onChange={handleTodoInputChange} value={todoInput} />
         <button className="button-update" onClick={updateList}>
           Submit
         </button>
