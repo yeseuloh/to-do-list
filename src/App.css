@@ -12,6 +12,12 @@ body {
   max-width: 400px;
 }
 
+@media screen and (max-width: 500px) {
+  .todo-wrapper {
+    padding: 0 15px;
+  }
+}
+
 .todo-input-wrapper {
   text-align: left;
   position: relative;
