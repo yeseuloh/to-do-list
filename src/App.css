@@ -1,5 +1,7 @@
 body {
   padding-top: 100px;
+  background: #f8f8f6;
+  font-family: 'Helvetica';
 }
 
 .todo-wrapper {
@@ -18,6 +20,10 @@ body {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  padding: 10px 0;
   align-items: center;
+  margin-bottom: 5px;
+}
+
+.todo-output-item > p {
+  margin: 0;
 }
