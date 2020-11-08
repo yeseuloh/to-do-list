@@ -37,50 +37,67 @@ function App() {
     var unfinishedListCopy = [...unfinishedList];
     unfinishedListCopy.splice(index, 1);
     setUnfinishedList(unfinishedListCopy);
-  }
+  };
 
   return (
     <div className="todo-wrapper">
       <h1>To Do List</h1>
       {finishedList.length > 0 && (
         <div className="todo-output-wrapper">
-          <h2>Done</h2>
           {finishedList.map((todo, index) => (
             <>
               {todo && (
                 <div className="todo-output-item">
+                  <div
+                    className="check-button check-button--finished"
+                    onClick={e => markAsUnfinished(e, index)}
+                  >
+                    <span class="checkmark">
+                      <div class="checkmark_stem"></div>
+                      <div class="checkmark_kick"></div>
+                    </span>
+                  </div>
                   <p key={index}>{todo}</p>
-                  <button className="button-delete" onClick={ e => markAsUnfinished(e, index)}>
+                  {/* <button className="button-delete" onClick={ e => markAsUnfinished(e, index)}>
                     Undone
-                  </button>
+                  </button> */}
                 </div>
               )}
             </>
           ))}
         </div>
       )}
-       {unfinishedList.length > 0 && (
+      {unfinishedList.length > 0 && (
         <div className="todo-output-wrapper">
-          <h2>Not done</h2>
           {unfinishedList.map((todo, index) => (
             <>
               {todo && (
                 <div className="todo-output-item">
-                <p key={index} >{todo}</p>
-                <button className="button-delete" onClick={e => markAsFinished(e, index)}>
-                  Done
-                </button>
-              </div>
+                  <div
+                    className="check-button check-button--unfinished"
+                    onClick={e => markAsFinished(e, index)}
+                  ></div>
+                  <p key={index}>{todo}</p>
+                  {/* <button className="button-delete" onClick={e => markAsFinished(e, index)}>
+                    Done
+                  </button> */}
+                </div>
               )}
             </>
           ))}
         </div>
       )}
       <form className="todo-input-wrapper">
-        <input type="text" onChange={handleTodoInputChange} value={todoInput} />
-        <button className="button-update" onClick={updateList}>
-          Submit
-        </button>
+        <div
+          className="check-button check-button--unfinished"
+          onClick={updateList}
+        ></div>
+        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+          <input type="text" onChange={handleTodoInputChange} value={todoInput} autoFocus/>
+          <button className="button-update" onClick={updateList}>
+            → Return/Enter to add
+          </button>
+        </div>
       </form>
     </div>
   );
