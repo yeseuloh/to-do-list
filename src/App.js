@@ -14,15 +14,12 @@ function App() {
   const updateList = e => {
     e.preventDefault();
     var unfinishedListCopy = [...unfinishedList];
-    console.log(unfinishedListCopy);
-    console.log(typeof(todoInput));
     unfinishedListCopy.push(todoInput);
-    console.log(unfinishedListCopy);
     setUnfinishedList(unfinishedListCopy);
     setTodoInput("");
   };
 
-  const markItemAsUnfinished = (e, index) => {
+  const markAsUnfinished = (e, index) => {
     e.preventDefault();
     var unfinishedListCopy = [...unfinishedList];
     unfinishedListCopy.push(finishedList[index]);
@@ -32,7 +29,7 @@ function App() {
     setFinishedList(finishedListCopy);
   };
 
-  const markItemAsFinished = (e, index) => {
+  const markAsFinished = (e, index) => {
     e.preventDefault();
     var finishedListCopy = [...finishedList];
     finishedListCopy.push(unfinishedList[index]);
@@ -53,7 +50,7 @@ function App() {
               {todo && (
                 <div className="todo-output-item">
                   <p key={index}>{todo}</p>
-                  <button className="button-delete" onClick={ e => markItemAsUnfinished(e, index)}>
+                  <button className="button-delete" onClick={ e => markAsUnfinished(e, index)}>
                     Undone
                   </button>
                 </div>
@@ -70,7 +67,7 @@ function App() {
               {todo && (
                 <div className="todo-output-item">
                 <p key={index} >{todo}</p>
-                <button className="button-delete" onClick={e => markItemAsFinished(e, index)}>
+                <button className="button-delete" onClick={e => markAsFinished(e, index)}>
                   Done
                 </button>
               </div>
